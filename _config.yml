@@ -4,9 +4,9 @@
 baseurl:
 url: https://mino0885.github.io/
 date_format: "ordinal"
-title: Mino
-subtitle: Mino的博客
-description: Mino的博客
+title: 空空
+subtitle: 空空的博客
+description: 空空的博客
 keywords: 
 favicon: /favicon.ico
 timezone: Asia/Beijing
@@ -16,10 +16,10 @@ side_bar_repo_limit: 5
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Mino
-github_username: Mino0885
+author: 空空
+github_username: kong-master
 location: Beijing , China
-email: Mino0885@outlook.com
+email: li.pengfei0120@gmail.com
 
 # ---------------- #
 #    Navigation    #
