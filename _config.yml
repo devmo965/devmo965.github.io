@@ -4,9 +4,9 @@
 baseurl:
 url: http://kong-master.github.io/
 date_format: "ordinal"
-title: Mino
-subtitle: Mino0885
-description: mino
+title: devmo965
+subtitle: devmo965
+description: devmo965
 keywords: 
 favicon: /favicon.ico
 timezone: Asia/Beijing
@@ -16,10 +16,10 @@ side_bar_repo_limit: 5
 # ---------------- #
 #      Author      #
 # ---------------- #
-author: Mino
-github_username: kong-master
+author: devmo
+github_username: devmo965
 location: Beijing , China
-email: li.pengfei0120@gmail.com
+email: devmo0965@gmail.com
 
 # ---------------- #
 #    Navigation    #
@@ -49,6 +49,9 @@ navs:
     href: /CV/
     label: 简历
 
+  -
+    href: /Chat/
+    label: Chat
     
   
 # ---------------- #
