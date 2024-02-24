@@ -1,0 +1,1821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer"/>
+    <style>
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    background-color: #F5F5F5;
+    /*background-image: url("data:image/svg+xml,%3Csvg width='52' height='26' viewBox='0 0 52 26' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2394AB85' fill-opacity='0.4'%3E%3Cpath d='M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");*/
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    /*-webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.3);*/
+    border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0);
+    /*-webkit-box-shadow: inset006pxrgba(0, 0, 0, 0.5);*/
+}
+
+.page {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    height: 80%;
+    max-width: 1200px;
+    box-shadow: 1px 1px 3px #ebebeb;
+    border-radius: 5px;
+}
+
+.page .side-bar {
+    width: 50px;
+    background-color: #2e2e2e;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.page .mid-bar {
+    width: 300px;
+    background-color: #ebebeb;
+    border-right: solid 1px #d6d6d6;
+}
+
+.page .main-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background-color: #f5f5f5;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.page .main-body .title-bar {
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.page .main-body .title-bar p {
+    margin: 5px 25px 5px 25px;
+    font-size: 18px;
+}
+
+.page .main-body .container {
+    flex: 1;
+    border-top: solid 3px #f0f0f0;
+    border-bottom: solid 3px #f0f0f0;
+}
+
+.page .main-body .nav-bar {
+    height: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.page .main-body .nav-bar .turner-bar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #2e2e2e;
+    font-size: 16px;
+    transform: translateY(-10px);
+    user-select: none;
+}
+
+.page .main-body .nav-bar .turner-bar .button {
+    display: inline-block;
+    background-color: #d6d6d6;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px 15px 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.page .main-body .nav-bar .turner-bar .button:hover {
+    background-color: #ebebeb;
+}
+
+.page .main-body .nav-bar .turner-bar p {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.page .main-body .nav-bar .turner-bar input {
+    border: none;
+    resize: none;
+    outline: none;
+    background: none;
+    border-bottom: solid 1px #1F1F1F;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    height: 24px;
+    width: 50px;
+}
+
+
+.container {
+    /*height: 80vh;*/
+    /*width: 100%;*/
+    /*max-width: 900px;*/
+    /*border-radius: 4px;*/
+    /*border: 0.5px solid #e0e0e0;*/
+    /*background-color: #f5f5f5;*/
+    display: flex;
+    /* flex-flow: column; */
+    overflow: hidden;
+    justify-content: center; /* 在主轴上居中 */
+}
+
+.container .content {
+    width: calc(100% - 40px);
+    padding: 20px;
+    overflow-y: scroll;
+    flex: 1;
+}
+
+.container .content:hover::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.container .content:hover::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.bubble {
+    white-space: pre-wrap;
+    max-width: 400px;
+    padding: 10px 11px 10px 11px;
+    border-radius: 5px;
+    position: relative;
+    color: #1F1F1F;
+    font-size: 14px;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.chat-refer {
+    margin-top: 5px;
+    max-width: 400px;
+    padding: 8px 10px 8px 10px;
+    border-radius: 3px;
+    position: relative;
+    color: #797979;
+    font-size: 12px;
+    background-color: #e8e8e8;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.chat-refer-right {
+    margin-right: 15px;
+}
+
+.chat-refer-left {
+    margin-left: 15px;
+}
+
+.item-left .bubble {
+    margin-left: 15px;
+    background-color: #fff;
+}
+
+.item-left .bubble:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-top: 10px solid transparent;
+    border-right: 10px solid #fff;
+    border-bottom: 10px solid transparent;
+    left: -20px;
+}
+
+.item-right .bubble {
+    margin-right: 15px;
+    background-color: #9eea6a;
+}
+
+.item-right .bubble:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid #9eea6a;
+    border-top: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    right: -20px;
+}
+
+.item {
+    margin-top: 15px;
+    display: flex;
+    width: 100%;
+}
+
+.item-refer {
+    margin-top: 4px;
+}
+
+.item.item-right {
+    justify-content: flex-end;
+}
+
+.item.item-center {
+    justify-content: center;
+}
+
+.item.item-center span {
+    font-size: 12px;
+    padding: 2px 4px;
+    color: #fff;
+    background-color: #dadada;
+    border-radius: 3px;
+    -moz-user-select: none; /*火狐*/
+    -webkit-user-select: none; /*webkit浏览器*/
+    -ms-user-select: none; /*IE10*/
+    -khtml-user-select: none; /*早期浏览器*/
+    user-select: none;
+}
+
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-wrapper-left {
+    align-items: baseline;
+}
+
+.content-wrapper-right {
+    align-items: flex-end;
+}
+
+.displayname {
+    margin-left: 13px;
+    margin-left: 13px;
+    font-size: 13px;
+    margin-bottom: 5px;
+    color: darkgray;
+}
+
+.chat-image img, .chat-file img {
+    margin-right: 18px;
+    margin-left: 18px;
+    max-width: 300px;
+    /*max-height: auto;*/
+}
+
+.avatar img {
+    width: 42px;
+    height: 42px;
+    border-radius: 3px;
+    user-select: none;
+}
+
+.chat-video video {
+    margin-right: 18px;
+    margin-left: 18px;
+    max-width: 350px;
+}
+
+.chat-audio {
+    max-width: 400px;
+}
+
+audio {
+    margin-left: 9px;
+    margin-right: 9px;
+}
+
+.chat-music-audio, .chat-file {
+    width: 300px;
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 100px;
+    margin-left: 10px;
+}
+
+.chat-file img {
+    width: 50px;
+}
+
+.chat-music-audio .player-box, .chat-file .file-box {
+    width: 300px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: 80px;
+}
+
+.chat-music-audio .player-original, .chat-file .app-info {
+    border-top: 1px solid #ede3e3;
+}
+
+.chat-music-audio .player-original p, .chat-file .app-info p {
+    margin-top: 3px;
+    color: #888;
+}
+
+.chat-music-audio .player-controls, .chat-file .file-img {
+    display: flex;
+    align-items: center;;
+}
+
+.file-title, .card-content > h2, .description > p {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+
+.file-title, .card-content > h2 {
+    -webkit-line-clamp: 2;
+}
+
+.description > p {
+    -webkit-line-clamp: 3;
+    margin-top: 2px;
+}
+
+
+.chat-music-audio .flex1, .chat-file .flex1 {
+    flex: 1;
+    justify-content: start;
+}
+
+.chat-music-audio .flex2, .chat-file .flex2 {
+    flex: 2;
+    justify-content: end;
+}
+
+.chat-music-audio .player-info, .chat-file .file-info {
+    width: 200px;
+    height: 80px;
+    margin-left: 4px;
+    margin-top: 15px;
+    white-space: normal;
+    flex-basis: 200px;
+    word-break: break-word;
+}
+
+.chat-music-audio .song-title, .chat-file .file-name {
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+
+.chat-music-audio .artist, .chat-file .file-size {
+    margin-top: 5px;
+    color: #888;
+}
+
+.app-info {
+    font-size: 13px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.file-size {
+    font-size: 14px;
+}
+
+.chat-music-audio .play-button {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 50%;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.chat-music-audio .play-button.playing {
+    background: url("./icon/pause.png");
+}
+
+.chat-music-audio .play-button.paused {
+    background: url("./icon/play.png");
+}
+
+.input-area {
+    border-top: 0.5px solid #e0e0e0;
+    height: 150px;
+    display: flex;
+    flex-flow: column;
+    background-color: #fff;
+}
+
+textarea {
+    flex: 1;
+    padding: 5px;
+    font-size: 14px;
+    border: none;
+    cursor: pointer;
+    overflow-y: auto;
+    overflow-x: hidden;
+    outline: none;
+    resize: none;
+}
+
+.button-area {
+    display: flex;
+    height: 40px;
+    margin-right: 10px;
+    line-height: 40px;
+    padding: 5px;
+    justify-content: flex-end;
+}
+
+.button-area button {
+    width: 80px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    float: right;
+    cursor: pointer;
+}
+
+.button-row,
+.jump-row,
+#paginationInfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 25px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 0 14px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+input {
+    padding: 8px;
+    width: 120px;
+    box-sizing: border-box;
+    margin-right: 0px;
+    margin-left: 15px;
+}
+
+button,
+input {
+    font-size: 14px;
+}
+
+#paginationInfo {
+    color: #555;
+    font-size: 14px;
+}
+
+/* 分享的卡片 */
+
+.card {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 5px 20px 20px 20px;
+}
+
+.card a {
+    text-decoration: none; /* 去掉链接的下划线 */
+    color: inherit; /* 继承父元素的文字颜色 */
+
+}
+
+.card-content {
+    padding: 20px;
+    flex: 1;
+}
+
+.thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.description {
+    display: flex;
+    justify-content: space-between;
+}
+
+.link-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    background-color: #f0f0f0;
+}
+
+.app-logo {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
+.app-name {
+    font-weight: bold;
+}
+
+/* 转账 */
+
+.transfer-box {
+    width: 200px;
+    height: 80px;
+    margin-left: 18px;
+    margin-right: 18px;
+    border-radius: 3px;
+    padding-left: 11px;
+    padding-right: 11px;
+    position: relative;
+}
+
+.transfer-box[paysubtype="1"], .transfer-box[paysubtype="1"]::before {
+    background: #f79c46;
+}
+
+.transfer-box[paysubtype="1"] i {
+    background-image: url(./icon/transfer1.png);
+}
+
+.transfer-box:not([paysubtype="1"]), .transfer-box:not([paysubtype="1"])::before {
+    background: #f8e2c6;
+}
+
+.transfer-box[paysubtype="3"] i {
+    background-image: url(./icon/transfer2.png);
+}
+
+.transfer-box[paysubtype="4"] i {
+    background-image: url(./icon/transfer3.png);
+}
+
+.transfer-box::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    transform: rotate(45deg);
+    top: 18px;
+}
+
+.transfer-box[issend="0"]::before {
+    left: -3px;
+}
+
+.transfer-box[issend="1"]::before {
+    left: 218px;
+}
+
+.trans-content {
+    display: flex;
+    height: 60px;
+    align-items: center;
+    position: relative;
+}
+
+.trans-content>i {
+    display: block;
+    width: 36px;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.transfer-texts {
+    margin-left: 7px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.transfer-texts>span, .transfer-texts>font, .trans-bottom>span {
+    color: white;
+    font-weight: 500;
+}
+
+.transfer-texts>span {
+    font-size: 15px;
+}
+
+.transfer-texts>font {
+    font-size: 12px;
+    padding-left: 2px;
+}
+
+.transfer {
+    height: 60px;
+}
+
+.trans-bottom {
+    height: 16px;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.trans-bottom>span {
+    font-size: 10px;
+}
+
+/* 音视频通话 */
+
+.call i{
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    vertical-align: middle;
+    margin-right: 4px;
+    margin-top: -2px;
+}
+
+.call[calltype='1'] i {
+    background-image: url(./icon/phone.png);
+}
+
+.call[calltype='0'] i {
+    background-image: url(./icon/video.png);
+}
+
+@media screen and (max-width: 768px) {
+    .button-row,
+    .jump-row,
+    #paginationInfo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 0px;
+    }
+
+    button {
+        padding: 5px 10px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin: 0 5px;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #2980b9;
+    }
+
+    input {
+        padding: 8px;
+        width: 120px;
+        box-sizing: border-box;
+        margin-right: 0px;
+        margin-left: 5px;
+    }
+}
+
+.system-msg > .emoji_img {
+    width: 18px;
+    height: 18px;
+}
+
+.emoji_img {
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    margin-top: -4.4px;
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-image {
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media screen and (max-width: 768px) {
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
+    .page {
+        width: 100%;
+        height: 100%;
+        box-shadow: none;
+    }
+
+    .page .side-bar, .page .mid-bar {
+        display: none
+    }
+
+    .page .main-body .nav-bar {
+        height: 120px;
+    }
+
+    .page .main-body .nav-bar .turner-bar {
+        transform: none;
+        font-size: 12px;
+    }
+
+    .page .main-body .nav-bar .turner-bar input {
+        font-size: 14px;
+    }
+
+    .page .main-body .nav-bar .turner-bar .button {
+        padding: 10px 12px 10px 12px;
+    }
+}
+</style>
+    <title>张莹</title>
+</head>
+<body>
+<div class="page">
+    <div class="side-bar"></div>
+    <div class="mid-bar"></div>
+    <div class="main-body">
+        <div class="title-bar"><p id="title">张莹</p></div>
+        <div class="container">
+            <div class="content" id="chat-container" onscroll="checkScroll()">
+                <div class="item item-center">
+                    <span>8:16</span>
+                </div>
+                <div class="item item-center">
+                    <span>错误提示</span>
+                </div>
+                <div class="item item-left">
+                    <div class="avatar">
+                        <img src="https://blog.lc044.love/static/img/a774ab7a32635db7b4254c8ff7caaa89.Camera_XHS_16984826124131040g2sg30qo1ggopgqe05oce.webp">
+                    </div>
+                    <div class="bubble bubble-left">很抱歉，由于程序出现未知错误，您的聊天记录未能成功展示。<br/>您可以关注下方微信公众号，<b>回复：联系方式</b>，获取QQ交流群群号，并在群内寻求帮助。
+                    </div>
+                </div>
+                <div class="item item-left">
+                    <div class="avatar">
+                        <img src="https://blog.lc044.love/static/img/a774ab7a32635db7b4254c8ff7caaa89.Camera_XHS_16984826124131040g2sg30qo1ggopgqe05oce.webp">
+                    </div>
+                    <div class="bubble bubble-left">您可自行排查问题所在，例如只选择文本或图片，反馈时请说明哪种消息类型出现了问题！！！
+                    </div>
+                </div>
+                <div class="item item-left">
+                    <div class="avatar">
+                        <img src="https://blog.lc044.love/static/img/a774ab7a32635db7b4254c8ff7caaa89.Camera_XHS_16984826124131040g2sg30qo1ggopgqe05oce.webp"
+                             loading="lazy">
+                    </div>
+                    <div class="content-wrapper content-wrapper-left">
+                        <div class="chat-image">
+                            <img src="https://blog.lc044.love/static/img/3fd32f1732a2c8f53a7eb923472b8f19.clipboard-2023-12-18.webp"
+                                 onclick="showModal(this)" loading="lazy">
+                        </div>
+                    </div>
+                </div>
+                <div class="item item-right">
+                    <div class="bubble bubble-right">好的</div>
+                    <div class="avatar">
+                        <img src="https://cdn.luogu.com.cn/upload/image_hosting/rbnmv4bu.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="nav-bar">
+            <div class="turner-bar">
+                <div class="button pre-page" onclick="prevPage()">上一页</div>
+                <div class="navigator-line">跳转到第
+                    <input class="navgator" value="1" id="gotoPage" onchange="gotoPage()"></input>页，共<p
+                            id="maxPage">0</p>页
+                </div>
+                <div class="button next-page" onclick="nextPage()">下一页</div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modal" class="modal" onclick="hideModal()">
+    <img id="modal-image" class="modal-image">
+</div>
+<script>
+const chatMessages = [
+{ type:0, text: '提灯女神·张 💯刚刚把你添加到通讯录，现在可以开始聊天了。',is_send:0,avatar_path:'',timestamp:1689610921,is_chatroom:0,displayname:''},{ type:1, text: '我是提灯女神·张 💯',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689610921,is_chatroom:0,displayname:'张莹'},{ type:0, text: '以上是打招呼的内容',is_send:0,avatar_path:'',timestamp:1689610921,is_chatroom:0,displayname:''},{ type:1, text: '[嘿哈]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689610930,is_chatroom:0,displayname:'张莹'},{ type:0, text: '你已添加了提灯女神·张 💯，现在可以开始聊天了。',is_send:0,avatar_path:'',timestamp:1689610946,is_chatroom:0,displayname:''},{ type:1, text: '修复关系的 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694160,is_chatroom:0,displayname:'张莹'},{ type:43, text: './video/b2c6bb62a82e840ea5cff1e402f8fe40.mp4',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694160,is_chatroom:0,displayname:'张莹'},{ type:1, text: '没有风 这么闪烁',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694179,is_chatroom:0,displayname:'张莹'},{ type:1, text: '刚开始烧的时候还会有点砰',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694200,is_chatroom:0,displayname:'张莹'},{ type:1, text: '开始烧砰 是因为表面有草药',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694569,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯好的呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694593,is_chatroom:0,displayname:'张莹'},{ type:1, text: '是不是过十二点之后你就有时间给我做占卜啦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694609,is_chatroom:0,displayname:'张莹'},{ type:1, text: '昨天你说要帮我做的哦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689694619,is_chatroom:0,displayname:'张莹'},{ type:1, text: '明天会给你看的 但也不是十二点之后就立马看的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694711,is_chatroom:0,displayname:'PH'},{ type:1, text: '今天新月 精力消耗很大',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694728,is_chatroom:0,displayname:'PH'},{ type:1, text: '我一会就要休息了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694731,is_chatroom:0,displayname:'PH'},{ type:1, text: '你放心哈 答应了就会看',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694741,is_chatroom:0,displayname:'PH'},{ type:1, text: '我是长期主义 不是用xx骗人之类哦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689694759,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯好的呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689695880,is_chatroom:0,displayname:'张莹'},{ type:1, text: ' 不是骗人 是我太着急想知道这段关系的去处了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689695902,is_chatroom:0,displayname:'张莹'},{ type:1, text: '那你快休息哦 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689695909,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我喜欢你家的香薰 试试效果下次肯定还会要的[玫瑰]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689695936,is_chatroom:0,displayname:'张莹'},{ type:3, text: 'http://wxapp.tc.qq.com/275/20304/stodownload?m=d01c0891774f6ec24c9edbef9002daa5&filekey=30340201010420301e02020113040253480410d01c0891774f6ec24c9edbef9002daa502022237040d00000004627466730000000132&hy=SH&storeid=26479be66000774c6000000000000011300004f5053480ebedb01e6accc59c&bizid=1023',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689696070,is_chatroom:0,displayname:'PH'},{ type:0, text: '\"提灯女神·张 💯\" 撤回了一条消息',is_send:0,avatar_path:'',timestamp:1689772925,is_chatroom:0,displayname:''},{ type:1, text: 'biu～',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689772931,is_chatroom:0,displayname:'张莹'},{ type:1, text: '什么时候给我测试呀',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689772945,is_chatroom:0,displayname:'张莹'},{ type:1, text: '过一小时左右我主动找你',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689773478,is_chatroom:0,displayname:'PH'},{ type:1, text: '出来觅食了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689773481,is_chatroom:0,displayname:'PH'},{ type:3, text: './image/8a145314949402c6139dfc59f89aa501.jpg',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689773499,is_chatroom:0,displayname:'PH'},{ type:1, text: '好的呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689774846,is_chatroom:0,displayname:'张莹'},{ type:1, text: '先忙哦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689774849,is_chatroom:0,displayname:'张莹'},{ type:1, text: '吃得开心[爱心]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689774853,is_chatroom:0,displayname:'张莹'},{ type:1, text: '在吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689780734,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780767,is_chatroom:0,displayname:'张莹'},{ type:1, text: '现在方便吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689780787,is_chatroom:0,displayname:'PH'},{ type:3, text: './image/8115caf568c82c7e55738d7525c236a7.jpg',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780803,is_chatroom:0,displayname:'张莹'},{ type:1, text: '分了三次 今天第三次 快燃完了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780822,is_chatroom:0,displayname:'张莹'},{ type:1, text: '方便的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780826,is_chatroom:0,displayname:'张莹'},{ type:1, text: 'ok',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689780873,is_chatroom:0,displayname:'PH'},{ type:1, text: '方便大致说一些问题吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689780886,is_chatroom:0,displayname:'PH'},{ type:1, text: '比如呢？',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780899,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我不知道该说什么',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780910,is_chatroom:0,displayname:'张莹'},{ type:1, text: '赠送的是抽一张牌看一个是否问题，比如我是否能xxxx这种非a即b的问题、或者今年能不能xxxxx之类的。 现在身边是否属于一个安静稳定的环境呢？',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689780911,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯 安静的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780927,is_chatroom:0,displayname:'张莹'},{ type:1, text: '那我的问题是我跟前男友能不能复合之后走进婚姻',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689780976,is_chatroom:0,displayname:'张莹'},{ type:1, text: '就是能不能复合，这个复合是往婚姻走，就大致这个意思',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781024,is_chatroom:0,displayname:'张莹'},{ type:1, text: '就是能不能复合结婚是吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781158,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯对',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781164,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781326,is_chatroom:0,displayname:'PH'},{ type:1, text: '单张牌是最多看三个月内',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781380,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781387,is_chatroom:0,displayname:'张莹'},{ type:1, text: '宝确定问这个问题不',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781392,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯是的呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781397,is_chatroom:0,displayname:'张莹'},{ type:1, text: '复合和结婚在一个问题里 那就以更久远结婚来看',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781422,is_chatroom:0,displayname:'PH'},{ type:1, text: '三个月内可以结婚吗？',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781427,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯好吧',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781433,is_chatroom:0,displayname:'张莹'},{ type:1, text: '不对',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781440,is_chatroom:0,displayname:'张莹'},{ type:1, text: '还是换成三个月内可以复合吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781443,is_chatroom:0,displayname:'PH'},{ type:1, text: '应该是订婚',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781445,is_chatroom:0,displayname:'张莹'},{ type:1, text: 'ok',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781450,is_chatroom:0,displayname:'PH'},{ type:1, text: '最终确认下',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781455,is_chatroom:0,displayname:'PH'},{ type:1, text: '应该是能不能复合然后订婚',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781463,is_chatroom:0,displayname:'张莹'},{ type:1, text: '反正就是正经复合那种',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781475,is_chatroom:0,displayname:'张莹'},{ type:1, text: '因为之前我俩老是分分合合的 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781489,is_chatroom:0,displayname:'张莹'},{ type:1, text: '就想和好了 就能长久往未来考虑的那种了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781522,is_chatroom:0,displayname:'张莹'},{ type:34, text:'./voice/3899977664241924358.mp3',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',voice_to_text:'',timestamp:1689781523,is_chatroom:0,displayname:'PH'},{ type:1, text: '那就看复合吧',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781552,is_chatroom:0,displayname:'张莹'},{ type:1, text: '三个月我也不能确定能不能订婚',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781565,is_chatroom:0,displayname:'张莹'},{ type:1, text: '但是复合应该还是能看的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781574,is_chatroom:0,displayname:'张莹'},{ type:1, text: '对。更久远的事情想在短时间内看结果。感觉差点劲',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781600,is_chatroom:0,displayname:'PH'},{ type:1, text: '看复合吧',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781605,is_chatroom:0,displayname:'PH'},{ type:1, text: '好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781614,is_chatroom:0,displayname:'张莹'},{ type:1, text: '找个安静的环境 保持内心平静默念问题 从哦你好1-78之间选择1个数字告诉我',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781634,is_chatroom:0,displayname:'PH'},{ type:1, text: '1-78之间？',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781656,is_chatroom:0,displayname:'张莹'},{ type:1, text: '22',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781675,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好的。是按照要求内心平静下选择的嘛',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781703,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781709,is_chatroom:0,displayname:'张莹'},{ type:1, text: 'ok我帮你抽下牌',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689781778,is_chatroom:0,displayname:'PH'},{ type:1, text: '好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689781784,is_chatroom:0,displayname:'张莹'},{ type:1, text: '抽到的是圣杯二正位，先说结论，你俩复合的可能性大，圣杯代表着情感，数字二代表结合，简单来讲就是关系更近一步，那对于你问的问题来讲复合的可能性很大',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689782305,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689782322,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好滴',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689782333,is_chatroom:0,displayname:'PH'},{ type:1, text: '万分感谢哦[合十]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689782398,is_chatroom:0,displayname:'张莹'},{ type:1, text: '其他还有什么吗',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783097,is_chatroom:0,displayname:'张莹'},{ type:3, text: './image/97dfe20532bc3263b06619e014e35f95.jpg',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783116,is_chatroom:0,displayname:'张莹'},{ type:1, text: '里面剩大概一指的高度 都是蜡油',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783136,is_chatroom:0,displayname:'张莹'},{ type:49, text: '没有啦',is_send:1,sub_type:57,refer_text: 'kiki塔罗：抽到的是圣杯二正位，先说结论，你俩复合的可能性大，圣杯代表着情感，数字二代表结合，简单来讲就是关系更近一步，那对于你问的问题来讲复合的可能性很大',avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783147,is_chatroom:0,displayname:'PH'},{ type:1, text: '能燃多久大概',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783147,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我定个表 晚上起来咩',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783159,is_chatroom:0,displayname:'张莹'},{ type:49, text: '3小时吧。',is_send:1,sub_type:57,refer_text: '提灯女神·张 💯：里面剩大概一指的高度 都是蜡油',avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783160,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783164,is_chatroom:0,displayname:'张莹'},{ type:1, text: '如果烧干了是不是自己就灭了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783179,is_chatroom:0,displayname:'张莹'},{ type:1, text: '最后草药部分燃烧会有点味道',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783182,is_chatroom:0,displayname:'PH'},{ type:49, text: '是的',is_send:1,sub_type:57,refer_text: '提灯女神·张 💯：如果烧干了是不是自己就灭了',avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783190,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯是的 现在就是在燃烧草药',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783197,is_chatroom:0,displayname:'张莹'},{ type:1, text: '你最好啊 明天再点蜡',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783203,is_chatroom:0,displayname:'PH'},{ type:49, text: '不用盖盖子也会灭？',is_send:0,sub_type:57,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783211,is_chatroom:0,displayname:'张莹'},{ type:49, text: '哈？',is_send:0,sub_type:57,refer_text: 'kiki塔罗：你最好啊 明天再点蜡',avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783245,is_chatroom:0,displayname:'张莹'},{ type:1, text: '怕晚上睡着不安全不是',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783251,is_chatroom:0,displayname:'张莹'},{ type:1, text: '但是我每天回家都好晚好晚[裂开]都没时间点燃它',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783279,is_chatroom:0,displayname:'张莹'},{ type:1, text: '只能趁着晚上这个时间',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783287,is_chatroom:0,displayname:'张莹'},{ type:49, text: '是的',is_send:1,sub_type:57,refer_text: '提灯女神·张 💯：怕晚上睡着不安全不是',avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783375,is_chatroom:0,displayname:'PH'},{ type:1, text: '我怕晚上睡觉啊。点着不安全啦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783384,is_chatroom:0,displayname:'PH'},{ type:1, text: '你这点明天点就够了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783398,is_chatroom:0,displayname:'PH'},{ type:1, text: '行，那我这边尽量先不睡，困了之前我赶紧把他灭掉，明天再点',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783404,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯呐',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783411,is_chatroom:0,displayname:'PH'},{ type:1, text: '好的好的，那明天点的话就是分四次点完的，没事儿吧',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783416,is_chatroom:0,displayname:'张莹'},{ type:1, text: '心愿显化的时候，我会跟你反馈的哟',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783437,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯嗯。没事',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783464,is_chatroom:0,displayname:'PH'},{ type:1, text: '安全第一位的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1689783467,is_chatroom:0,displayname:'PH'},{ type:1, text: '[爱心]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1689783517,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[嘿哈]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635806,is_chatroom:0,displayname:'张莹'},{ type:1, text: '睡了嘛',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635810,is_chatroom:0,displayname:'张莹'},{ type:1, text: '还没',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692635817,is_chatroom:0,displayname:'PH'},{ type:1, text: '我跟前男友还没和好呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635818,is_chatroom:0,displayname:'张莹'},{ type:1, text: '哎',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635821,is_chatroom:0,displayname:'张莹'},{ type:1, text: '怎么回事',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692635841,is_chatroom:0,displayname:'PH'},{ type:1, text: '上次那个蜡烛熏了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635855,is_chatroom:0,displayname:'张莹'},{ type:1, text: '你帮我算了一下 说三个月内',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635863,is_chatroom:0,displayname:'张莹'},{ type:1, text: '马上过节呢 还没动静了现在',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635876,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我不想放手 我俩渊源有点深 积怨也多，',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635898,is_chatroom:0,displayname:'张莹'},{ type:1, text: '还是想着最后能是他',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692635927,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[捂脸][捂脸][捂脸]宝能发下上次的记录吗  我换手机了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692635993,is_chatroom:0,displayname:'PH'},{ type:3, text: './image/2fdc606baac3d01e2181d5c982cedfde.jpg',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636309,is_chatroom:0,displayname:'张莹'},{ type:1, text: '事情缓和需要时间啦 ',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692636449,is_chatroom:0,displayname:'PH'},{ type:1, text: '我俩六月份都分手了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636486,is_chatroom:0,displayname:'张莹'},{ type:1, text: '到现在了都',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636489,is_chatroom:0,displayname:'张莹'},{ type:1, text: '这样到什么时候了啊[苦涩]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636507,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[捂脸]塔罗牌是看半年内的一个结果的哦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692636604,is_chatroom:0,displayname:'PH'},{ type:1, text: '哦哦哦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636669,is_chatroom:0,displayname:'张莹'},{ type:1, text: '一般都是准的 对嘛',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692636676,is_chatroom:0,displayname:'张莹'},{ type:1, text: '牌面作为参考吧 大部分是准的 但不能做到准确100%',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692636789,is_chatroom:0,displayname:'PH'},{ type:1, text: '[合十]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637109,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯嗯',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637115,is_chatroom:0,displayname:'PH'},{ type:1, text: '赶紧好吧',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637119,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好了我来反馈',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637124,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[苦涩]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637126,is_chatroom:0,displayname:'张莹'},{ type:1, text: '七夕一到',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637127,is_chatroom:0,displayname:'PH'},{ type:1, text: '你可能会有点慌了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637135,is_chatroom:0,displayname:'PH'},{ type:1, text: '稳住',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637138,is_chatroom:0,displayname:'PH'},{ type:1, text: '也不光是七夕 主要分开时间有点长了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637156,is_chatroom:0,displayname:'张莹'},{ type:1, text: '理解',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637466,is_chatroom:0,displayname:'PH'},{ type:1, text: '先放平心态',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637472,is_chatroom:0,displayname:'PH'},{ type:1, text: '先休息',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637473,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637484,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[拥抱][苦涩][合十]感谢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637494,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637660,is_chatroom:0,displayname:'PH'},{ type:0, text: '你撤回了一条消息',is_send:0,avatar_path:'',timestamp:1692637689,is_chatroom:0,displayname:''},{ type:1, text: '回错了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637721,is_chatroom:0,displayname:'PH'},{ type:1, text: '不好意思',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637723,is_chatroom:0,displayname:'PH'},{ type:1, text: '[拥抱]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1692637786,is_chatroom:0,displayname:'张莹'},{ type:1, text: '早点睡觉哦宝子',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1692637871,is_chatroom:0,displayname:'PH'},{ type:1, text: '31号那个许愿',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693306478,is_chatroom:0,displayname:'张莹'},{ type:1, text: '求复合',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693306485,is_chatroom:0,displayname:'张莹'},{ type:1, text: '求考试通过',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693306498,is_chatroom:0,displayname:'张莹'},{ type:1, text: '能行么',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693306501,is_chatroom:0,displayname:'张莹'},{ type:1, text: '可以许这些愿望',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693306577,is_chatroom:0,displayname:'PH'},{ type:1, text: '考试是考前还是考后',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693306590,is_chatroom:0,displayname:'PH'},{ type:1, text: '现在考完了吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693306656,is_chatroom:0,displayname:'PH'},{ type:34, text:'./voice/8199331544370552477.mp3',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',voice_to_text:'',timestamp:1693306716,is_chatroom:0,displayname:'张莹'},{ type:1, text: '考试的可以许',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693306875,is_chatroom:0,displayname:'PH'},{ type:1, text: '现在是备考阶段 也可以许备考状态好 ',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693306896,is_chatroom:0,displayname:'PH'},{ type:1, text: '小宝。需要的话尽快约哈',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693316634,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯好的呀',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693354586,is_chatroom:0,displayname:'张莹'},{ type:1, text: '58💰 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693354604,is_chatroom:0,displayname:'张莹'},{ type:1, text: '是嘛',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693354607,is_chatroom:0,displayname:'张莹'},{ type:1, text: '是的哦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693357722,is_chatroom:0,displayname:'PH'},{ type:1, text: '[坏笑]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497092,is_chatroom:0,displayname:'张莹'},{ type:1, text: '刚想起哈哈哈',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497100,is_chatroom:0,displayname:'张莹'},{ type:1, text: '啊 那只能现在给你加了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497370,is_chatroom:0,displayname:'PH'},{ type:1, text: '第一批都开始4个小时了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497386,is_chatroom:0,displayname:'PH'},{ type:1, text: '可以接受吗、',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497389,is_chatroom:0,displayname:'PH'},{ type:1, text: '哈？',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497521,is_chatroom:0,displayname:'张莹'},{ type:1, text: '看一下哈加的话',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497521,is_chatroom:0,displayname:'PH'},{ type:1, text: '不太懂哎',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497526,is_chatroom:0,displayname:'张莹'},{ type:1, text: '正常报名是昨天截止的，',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497529,is_chatroom:0,displayname:'PH'},{ type:1, text: '会有影响嘛',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497535,is_chatroom:0,displayname:'张莹'},{ type:1, text: '现在许愿能量也强，只是别人已经开始4个小时了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497565,is_chatroom:0,displayname:'PH'},{ type:1, text: '没影响 只是你和别人是分开的 我要单独给你处理',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497586,is_chatroom:0,displayname:'PH'},{ type:1, text: '你考虑下 需要的话 现在给我姓名生日愿望',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693497607,is_chatroom:0,displayname:'PH'},{ type:1, text: '好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497673,is_chatroom:0,displayname:'张莹'},{ type:1, text: '张莹',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497679,is_chatroom:0,displayname:'张莹'},{ type:1, text: '希望我跟史飞重归于好',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497699,is_chatroom:0,displayname:'张莹'},{ type:1, text: '希望我备考状态好起来，学习能理解的好，背的能记住',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497733,is_chatroom:0,displayname:'张莹'},{ type:1, text: '希望💰财能好起来 近期能有多一点的收入',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693497791,is_chatroom:0,displayname:'张莹'},{ type:1, text: '生日也发我下哈',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498248,is_chatroom:0,displayname:'PH'},{ type:1, text: '90年阳历6月26',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498355,is_chatroom:0,displayname:'张莹'},{ type:1, text: '阴历5月初四',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498360,is_chatroom:0,displayname:'张莹'},{ type:1, text: '男生呢',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498363,is_chatroom:0,displayname:'PH'},{ type:1, text: '早上8:20',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498365,is_chatroom:0,displayname:'张莹'},{ type:1, text: '如果有男生的生日也发我哈',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498371,is_chatroom:0,displayname:'PH'},{ type:1, text: '男生史飞 91年阳历3月8号',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498382,is_chatroom:0,displayname:'张莹'},{ type:1, text: '阴历正月二十二',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498391,is_chatroom:0,displayname:'张莹'},{ type:1, text: '凌晨1:30',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498396,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我俩的手机号',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498411,is_chatroom:0,displayname:'张莹'},{ type:1, text: '地址',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498414,is_chatroom:0,displayname:'张莹'},{ type:1, text: '需要发么',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498417,is_chatroom:0,displayname:'张莹'},{ type:1, text: '不需要啊',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498444,is_chatroom:0,displayname:'PH'},{ type:1, text: '要上面的生日愿望姓名就是每个人都是要的这些信息啊',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498459,is_chatroom:0,displayname:'PH'},{ type:1, text: '那。那现在发的信息就够了吧',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498552,is_chatroom:0,displayname:'张莹'},{ type:1, text: '尤其是我俩和好 一定好好帮我许愿啊小姐姐 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498635,is_chatroom:0,displayname:'张莹'},{ type:1, text: '看看有没有戏 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498639,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我想跟他结婚的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498644,is_chatroom:0,displayname:'张莹'},{ type:1, text: '今年年底能订婚或者明年初能结婚啊',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498663,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯。第二个考试的愿望是我9月21号在香港考试，嗯，而且今年12月份会有一个研究生的考试',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693498807,is_chatroom:0,displayname:'张莹'},{ type:43, text: './video/e6346356479fd6f7e5abbd22cea9da27.mp4',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693498987,is_chatroom:0,displayname:'PH'},{ type:1, text: '[合十]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499024,is_chatroom:0,displayname:'张莹'},{ type:1, text: '感谢小姐姐哦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499039,is_chatroom:0,displayname:'张莹'},{ type:1, text: '看到可以链接许愿',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499040,is_chatroom:0,displayname:'PH'},{ type:1, text: '把你刚才说的具体的心愿 链接冥想',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499053,is_chatroom:0,displayname:'PH'},{ type:1, text: '我前两天忘记提醒你了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499065,is_chatroom:0,displayname:'PH'},{ type:1, text: '我也需要一直视频么跟你',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499065,is_chatroom:0,displayname:'张莹'},{ type:1, text: '看看视频 链接许愿就好了',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499080,is_chatroom:0,displayname:'PH'},{ type:1, text: '本身想直播给你们点的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499088,is_chatroom:0,displayname:'PH'},{ type:1, text: '没事儿没事儿 帮我多许愿一下就好啦哈哈哈',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499092,is_chatroom:0,displayname:'张莹'},{ type:1, text: '结果播了4个小时手机发烫卡的不行',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499098,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯呢没事儿的呢',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499106,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我最初认为只有苹果卡 特意买了安卓手机。也还是卡',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499117,is_chatroom:0,displayname:'PH'},{ type:1, text: '再想想办法 尽量以后让你们可以全程看到',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499127,is_chatroom:0,displayname:'PH'},{ type:1, text: '哈哈哈就是不知道是不是需要全程什么都不做 跟着一起冥想许愿',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499201,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我现在需要跟着一起许愿么一直',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499214,is_chatroom:0,displayname:'张莹'},{ type:1, text: '跟着视频简单冥想 许愿就可以啦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499283,is_chatroom:0,displayname:'PH'},{ type:1, text: '要多久',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499326,is_chatroom:0,displayname:'张莹'},{ type:1, text: '1分钟左右就可以啦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499336,is_chatroom:0,displayname:'PH'},{ type:1, text: '就是不断的重复自己的愿望就好了',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499445,is_chatroom:0,displayname:'张莹'},{ type:1, text: '是么',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499446,is_chatroom:0,displayname:'张莹'},{ type:1, text: '对的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499453,is_chatroom:0,displayname:'PH'},{ type:1, text: '[合十]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499582,is_chatroom:0,displayname:'张莹'},{ type:1, text: '好啦 姐姐要帮我多多许愿呀 [玫瑰]让我的念力也强起来',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499614,is_chatroom:0,displayname:'张莹'},{ type:1, text: '集体许愿就是大家能量 都是共享',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499740,is_chatroom:0,displayname:'PH'},{ type:1, text: '互相加强的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693499743,is_chatroom:0,displayname:'PH'},{ type:1, text: '嗯嗯',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693499751,is_chatroom:0,displayname:'张莹'},{ type:1, text: '做了一夜的梦 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693525201,is_chatroom:0,displayname:'张莹'},{ type:1, text: '梦见有新恋情了 在梦里还很踏实，很安心的那种感觉[Emm]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693525234,is_chatroom:0,displayname:'张莹'},{ type:1, text: '会有这种情况',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693534298,is_chatroom:0,displayname:'PH'},{ type:1, text: '今天心情如何',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693534305,is_chatroom:0,displayname:'PH'},{ type:1, text: '想来还是会期待跟前任和好呀',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693534346,is_chatroom:0,displayname:'张莹'},{ type:1, text: '想能年底前订婚啊',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693534358,is_chatroom:0,displayname:'张莹'},{ type:1, text: '我知道我是说自己的心情情绪之类的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693534359,is_chatroom:0,displayname:'PH'},{ type:1, text: '说不上来 就平常心吧[破涕为笑]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693534378,is_chatroom:0,displayname:'张莹'},{ type:1, text: '不知道该怎么形容哈哈哈',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693534386,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯嗯 可以感受下',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693534400,is_chatroom:0,displayname:'PH'},{ type:1, text: '[合十]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693534459,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[嘿哈]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693804408,is_chatroom:0,displayname:'张莹'},{ type:1, text: '亲亲我想知道咱们做的集体许愿',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693804420,is_chatroom:0,displayname:'张莹'},{ type:1, text: '一般多久显化啊',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693804433,is_chatroom:0,displayname:'张莹'},{ type:1, text: '和咱们蜡烛一个道理 因人而异 因事而异',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693812670,is_chatroom:0,displayname:'PH'},{ type:1, text: '我就是想看我许的第一个愿望，关于感情的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693819780,is_chatroom:0,displayname:'张莹'},{ type:1, text: '就是具体重归于好的那个愿望吗',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693819934,is_chatroom:0,displayname:'PH'},{ type:1, text: '是的，是的',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693820363,is_chatroom:0,displayname:'张莹'},{ type:1, text: '这个的话 具体显化时间没法确定的呀 因为每个人的愿望 和状况 都是不同的 ',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693821097,is_chatroom:0,displayname:'PH'},{ type:1, text: '并且具体到你的愿望上 也是需要一方来推动',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693821122,is_chatroom:0,displayname:'PH'},{ type:1, text: '但是一般都是会显化的，对吗？就是时间早晚的事儿',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693821514,is_chatroom:0,displayname:'张莹'},{ type:1, text: '目前看来哈我着许愿的也好 集体许愿的也是 只能说 大部分还是能够显化的',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693821604,is_chatroom:0,displayname:'PH'},{ type:1, text: '具体落实到个人 我没法保证的呀',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693821613,is_chatroom:0,displayname:'PH'},{ type:1, text: 'hh',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1693821614,is_chatroom:0,displayname:'PH'},{ type:1, text: '好的好的，没关系，我希望我是那大部分人',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1693822842,is_chatroom:0,displayname:'张莹'},{ type:34, text:'./voice/6307820631539317361.mp3',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',voice_to_text:'',timestamp:1693822870,is_chatroom:0,displayname:'张莹'},{ type:34, text:'./voice/7727563220481256355.mp3',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',voice_to_text:'',timestamp:1693822883,is_chatroom:0,displayname:'张莹'},{ type:1, text: '小姐姐 我21号要考试了哦 ',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695043777,is_chatroom:0,displayname:'张莹'},{ type:1, text: '之前许愿 希望能顺顺利利的哦',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695043787,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯嗯 加油加油',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1695043897,is_chatroom:0,displayname:'PH'},{ type:1, text: '[加油]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695043934,is_chatroom:0,displayname:'张莹'},{ type:1, text: '复合也要催催呀',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695043945,is_chatroom:0,displayname:'张莹'},{ type:1, text: '[害羞]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695043953,is_chatroom:0,displayname:'张莹'},{ type:1, text: '嗯嗯～好滴 ',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1695044587,is_chatroom:0,displayname:'PH'},{ type:1, text: '眼下的考试调整心态哦',is_send:1,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/1TlCqS4aOY7ia3qSNvcVF99UjY5icYnVKNOA1X8f9KGqt5gJq67Jh0c7w1Rjoceic1G835MiaTjloYzD1PXWdFxvfIuGv3dGX7HgogUz0u7RyQE/132',timestamp:1695044602,is_chatroom:0,displayname:'PH'},{ type:1, text: '[爱心]',is_send:0,avatar_path:'https://wx.qlogo.cn/mmhead/ver_1/pXqBj2gFib7tVWARykXEOjlicjsicrQTXEu2ibfQD25NQVxm1IsNLmmjiboVLk15t4YfhMG0ib2sicH3fnTb98RDJWpR9NEdiaiaJibZVW1TOOKforSCpryXdYlvuXzQ2oFEibviaHhH/132',timestamp:1695049413,is_chatroom:0,displayname:'张莹'},
+];
+
+</script>
+<script>
+const chatContainer = document.getElementById('chat-container');
+
+function checkEnter(event) {
+    if (event.keyCode === 13) {
+        gotoPage();
+    }
+}
+
+const itemsPerPage = 100; // 每页显示的元素个数
+let currentPage = 1; // 当前页
+var reachedBottom = false; // 到达底部的标记
+var lastScrollTop = 0;
+var lastTimeStamp = 0;
+
+function renderPage(page) {
+    const totalPages = Math.ceil(chatMessages.length / itemsPerPage);
+    // document.getElementById('curPage').innerHTML = currentPage;
+    document.getElementById('gotoPage').value = currentPage;
+    document.getElementById('maxPage').innerHTML = totalPages;
+    const container = document.getElementById('chat-container');
+    if (!reachedBottom) {
+        container.innerHTML = ''; // 清空容器
+        lastScrollTop = 0;
+        lastTimeStamp = 0;
+    } else {
+        reachedBottom = false;
+    }
+
+    // 计算当前页应该显示的元素范围
+    const startIndex = (page - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+
+    // 工具类函数
+    function replaceEmoji(text) {
+
+        // 定义替换规则，可以根据需要添加更多规则
+        var replacementRules = [
+            {
+                pattern: /\[微笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_1@2x.png" id="微笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[发呆\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_4@2x.png" id="发呆" class="emoji_img">'
+            },
+            {
+                pattern: /\[撇嘴\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_2@2x.png" id="撇嘴" class="emoji_img">'
+            },
+            {
+                pattern: /\[色\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_3@2x.png" id="色" class="emoji_img">'
+            },
+            {
+                pattern: /\[发呆\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_4@2x.png" id="发呆" class="emoji_img">'
+            },
+            {
+                pattern: /\[得意\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_5@2x.png" id="得意" class="emoji_img">'
+            },
+            {
+                pattern: /\[流泪\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_6@2x.png" id="流泪" class="emoji_img">'
+            },
+            {
+                pattern: /\[害羞\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_7@2x.png" id="害羞" class="emoji_img">'
+            },
+            {
+                pattern: /\[闭嘴\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_8@2x.png" id="闭嘴" class="emoji_img">'
+            },
+            {
+                pattern: /\[睡\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_9@2x.png" id="睡" class="emoji_img">'
+            },
+            {
+                pattern: /\[大哭\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_10@2x.png" id="大哭" class="emoji_img">'
+            },
+            {
+                pattern: /\[尴尬\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_11@2x.png" id="尴尬" class="emoji_img">'
+            },
+            {
+                pattern: /\[发怒\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_12@2x.png" id="发怒" class="emoji_img">'
+            },
+            {
+                pattern: /\[调皮\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_13@2x.png" id="调皮" class="emoji_img">'
+            },
+            {
+                pattern: /\[呲牙\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_14@2x.png" id="呲牙" class="emoji_img">'
+            },
+            {
+                pattern: /\[惊讶\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_15@2x.png" id="惊讶" class="emoji_img">'
+            },
+            {
+                pattern: /\[难过\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_16@2x.png" id="难过" class="emoji_img">'
+            },
+            {
+                pattern: /\[抓狂\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_19@2x.png" id="抓狂" class="emoji_img">'
+            },
+            {
+                pattern: /\[吐\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_20@2x.png" id="吐" class="emoji_img">'
+            },
+            {
+                pattern: /\[偷笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_21@2x.png" id="偷笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[愉快\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_22@2x.png" id="愉快" class="emoji_img">'
+            },
+            {
+                pattern: /\[白眼\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_23@2x.png" id="白 眼" class="emoji_img">'
+            },
+            {
+                pattern: /\[傲慢\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_24@2x.png" id="傲慢" class="emoji_img">'
+            },
+            {
+                pattern: /\[困\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_26@2x.png" id="困" class="emoji_img">'
+            },
+            {
+                pattern: /\[惊恐\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_27@2x.png" id="惊恐" class="emoji_img">'
+            },
+            {
+                pattern: /\[憨笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_29@2x.png" id="憨笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[悠闲\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_30@2x.png" id="悠闲" class="emoji_img">'
+            },
+            {
+                pattern: /\[咒骂\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_32@2x.png" id="咒骂" class="emoji_img">'
+            },
+            {
+                pattern: /\[疑问\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_33@2x.png" id="疑问" class="emoji_img">'
+            },
+            {
+                pattern: /\[嘘\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_34@2x.png" id="嘘" class="emoji_img">'
+            },
+            {
+                pattern: /\[晕\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_35@2x.png" id="晕" class="emoji_img">'
+            },
+            {
+                pattern: /\[衰\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_37@2x.png" id="衰" class="emoji_img">'
+            },
+            {
+                pattern: /\[骷髅\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_38@2x.png" id="骷髅" class="emoji_img">'
+            },
+            {
+                pattern: /\[敲打\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_39@2x.png" id="敲打" class="emoji_img">'
+            },
+            {
+                pattern: /\[再见\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_40@2x.png" id="再见" class="emoji_img">'
+            },
+            {
+                pattern: /\[擦汗\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_41@2x.png" id="擦汗" class="emoji_img">'
+            },
+            {
+                pattern: /\[抠鼻\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_42@2x.png" id="抠鼻" class="emoji_img">'
+            },
+            {
+                pattern: /\[鼓掌\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_43@2x.png" id="鼓掌" class="emoji_img">'
+            },
+            {
+                pattern: /\[坏笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_45@2x.png" id="坏笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[右哼哼\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_47@2x.png" id="右哼哼" class="emoji_img">'
+            },
+            {
+                pattern: /\[鄙视\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_49@2x.png" id="鄙视" class="emoji_img">'
+            },
+            {
+                pattern: /\[委屈\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_50@2x.png" id="委屈" class="emoji_img">'
+            },
+            {
+                pattern: /\[快哭了\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_51@2x.png" id="快哭了" class="emoji_img">'
+            },
+            {
+                pattern: /\[阴险\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_52@2x.png" id="阴险" class="emoji_img">'
+            },
+            {
+                pattern: /\[亲亲\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_53@2x.png" id="亲亲" class="emoji_img">'
+            },
+            {
+                pattern: /\[可怜\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_55@2x.png" id="可怜" class="emoji_img">'
+            },
+            {
+                pattern: /\[Whimper\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_55@2x.png" id="可怜" class="emoji_img">'
+            },
+            {
+                pattern: /\[笑脸\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Happy.png" id="笑脸" class="emoji_img">'
+            },
+            {
+                pattern: /\[生病\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Sick.png" id="生病" class="emoji_img">'
+            },
+            {
+                pattern: /\[脸红\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Flushed.png" id="脸红" class="emoji_img">'
+            },
+            {
+                pattern: /\[破涕为笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Lol.png" id="破涕为笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[恐惧\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Terror.png" id="恐惧" class="emoji_img">'
+            },
+            {
+                pattern: /\[失望\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/LetDown.png" id="失望" class="emoji_img">'
+            },
+            {
+                pattern: /\[无语\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Duh.png" id="无语" class="emoji_img">'
+            },
+            {
+                pattern: /\[嘿哈\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_04.png" id="嘿哈" class="emoji_img">'
+            },
+            {
+                pattern: /\[捂脸\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_05.png" id="捂脸" class="emoji_img">'
+            },
+            {
+                pattern: /\[奸笑\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_02.png" id="奸笑" class="emoji_img">'
+            },
+            {
+                pattern: /\[机智\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_06.png" id="机智" class="emoji_img">'
+            },
+            {
+                pattern: /\[皱眉\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_12.png" id="皱眉" class="emoji_img">'
+            },
+            {
+                pattern: /\[耶\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_11.png" id="耶" class="emoji_img">'
+            },
+            {
+                pattern: /\[吃瓜\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Watermelon.png" id="吃瓜" class="emoji_img">'
+            },
+            {
+                pattern: /\[加油\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Addoil.png" id="加油" class="emoji_img">'
+            },
+            {
+                pattern: /\[汗\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Sweat.png" id="汗" class="emoji_img">'
+            },
+            {
+                pattern: /\[天啊\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Shocked.png" id="天啊" class="emoji_img">'
+            },
+            {
+                pattern: /\[Emm\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Cold.png" id="Emm" class="emoji_img">'
+            },
+            {
+                pattern: /\[社会社会\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Social.png" id="社会社会" class="emoji_img">'
+            },
+            {
+                pattern: /\[旺柴\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Yellowdog.png" id="旺柴" class="emoji_img">'
+            },
+            {
+                pattern: /\[好的\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/NoProb.png" id="好的" class="emoji_img">'
+            },
+            {
+                pattern: /\[打脸\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Slap.png" id="打脸" class="emoji_img">'
+            },
+            {
+                pattern: /\[哇\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Wow.png" id="哇" class="emoji_img">'
+            },
+            {
+                pattern: /\[翻白眼\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Boring.png" id="翻白眼" class="emoji_img">'
+            },
+            {
+                pattern: /\[666\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/666.png" id="666" class="emoji_img">'
+            },
+            {
+                pattern: /\[让我看看\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/LetMeSee.png" id="让我看看" class="emoji_img">'
+            },
+            {
+                pattern: /\[叹气\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Sigh.png" id="叹气" class="emoji_img">'
+            },
+            {
+                pattern: /\[苦涩\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Hurt.png" id="苦涩" class="emoji_img">'
+            },
+            {
+                pattern: /\[難受\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Hurt.png" id="苦涩" class="emoji_img">'
+            },
+            {
+                pattern: /\[裂开\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Broken.png" id="裂开" class="emoji_img">'
+            },
+            {
+                pattern: /\[嘴唇\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_66@2x.png" id="嘴唇" class="emoji_img">'
+            },
+            {
+                pattern: /\[爱心\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_67@2x.png" id="爱心" class="emoji_img">'
+            },
+            {
+                pattern: /\[心碎\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_68@2x.png" id="心碎" class="emoji_img">'
+            },
+            {
+                pattern: /\[拥抱\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_79@2x.png" id="拥抱" class="emoji_img">'
+            },
+            {
+                pattern: /\[强\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_80@2x.png" id="强" class="emoji_img">'
+            },
+            {
+                pattern: /\[弱\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_81@2x.png" id="弱" class="emoji_img">'
+            },
+            {
+                pattern: /\[握手\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_82@2x.png" id="握手" class="emoji_img">'
+            },
+            {
+                pattern: /\[胜利\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_83@2x.png" id="胜利" class="emoji_img">'
+            },
+            {
+                pattern: /\[抱拳\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_84@2x.png" id="抱拳" class="emoji_img">'
+            },
+            {
+                pattern: /\[勾引\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_85@2x.png" id="勾引" class="emoji_img">'
+            },
+            {
+                pattern: /\[拳头\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_86@2x.png" id="拳头" class="emoji_img">'
+            },
+            {
+                pattern: /\[OK\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_90@2x.png" id="OK" class="emoji_img">'
+            },
+            {
+                pattern: /\[合十\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Worship.png" id="合十" class="emoji_img">'
+            },
+            {
+                pattern: /\[啤酒\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_58@2x.png" id="啤酒" class="emoji_img">'
+            },
+            {
+                pattern: /\[咖啡]\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_61@2x.png" id="咖啡" class="emoji_img">'
+            },
+            {
+                pattern: /\[蛋糕\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_69@2x.png" id="蛋糕" class="emoji_img">'
+            },
+            {
+                pattern: /\[玫瑰\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_64@2x.png" id="玫 瑰" class="emoji_img">'
+            },
+            {
+                pattern: /\[凋谢\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_65@2x.png" id="凋谢" class="emoji_img">'
+            },
+            {
+                pattern: /\[菜刀\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_56@2x.png" id="菜刀" class="emoji_img">'
+            },
+            {
+                pattern: /\[炸弹\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_71@2x.png" id="炸弹" class="emoji_img">'
+            },
+            {
+                pattern: /\[便便\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_75@2x.png" id="便便" class="emoji_img">'
+            },
+            {
+                pattern: /\[月亮\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_76@2x.png" id="月亮" class="emoji_img">'
+            },
+            {
+                pattern: /\[太阳\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_77@2x.png" id="太阳" class="emoji_img">'
+            },
+            {
+                pattern: /\[庆 祝\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Party.png" id="庆祝" class="emoji_img">'
+            },
+            {
+                pattern: /\[礼物\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_78@2x.png" id="礼物" class="emoji_img">'
+            },
+            {
+                pattern: /\[红包\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_09.png" id="红包" class="emoji_img">'
+            },
+            {
+                pattern: /\[發\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_16.png" id="發" class="emoji_img">'
+            },
+            {
+                pattern: /\[福\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/2_15.png" id="福" class="emoji_img">'
+            },
+            {
+                pattern: /\[烟花\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Fireworks.png" id="烟花" class="emoji_img">'
+            },
+            {
+                pattern: /\[爆竹\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/newemoji/Firecracker.png" id="爆竹" class="emoji_img">'
+            },
+            {
+                pattern: /\[猪头\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_63@2x.png" id="猪头" class="emoji_img">'
+            },
+            {
+                pattern: /\[跳跳\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_93@2x.png" id="跳跳" class="emoji_img">'
+            },
+            {
+                pattern: /\[发抖\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_94@2x.png" id="发抖" class="emoji_img">'
+            },
+            {
+                pattern: /\[转圈\]/g,
+                replacement: '<img src="https://res.wx.qq.com/t/wx_fed/we-emoji/res/v1.2.8/assets/Expression/Expression_96@2x.png" id="转圈" class="emoji_img">'
+            }
+        ];
+
+        // 循环遍历替换规则
+        for (var i = 0; i < replacementRules.length; i++) {
+            var rule = replacementRules[i];
+            text = text.replace(rule.pattern, rule.replacement);
+        }
+        return text;
+    }
+
+    function timestampToTime(timestamp) {
+        let date = new Date(timestamp * 1000);
+        let year = date.getFullYear() + '-';
+        let month = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+        let day = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate()) + ' ';
+        let hour = (date.getHours() < 10 ? '0' + date.getHours() : date.getHours()) + ':';
+        let minute = (date.getMinutes() < 10 ? '0' + date.getMinutes() : date.getMinutes()) + ':';
+        let second = date.getSeconds() < 10 ? '0' + date.getSeconds() : date.getSeconds();
+        return year + month + day + hour + minute + second;
+    }
+
+    // 生成各类标签的函数
+    function add5MinTimeTag(message) {
+        if (message.timestamp - lastTimeStamp > 300) {
+            const newTimeMessage = document.createElement('div');
+            newTimeMessage.className = "item item-center";
+            newTimeMessage.innerHTML = `<span>${timestampToTime(message.timestamp)}</span>`;
+            chatContainer.appendChild(newTimeMessage);
+            lastTimeStamp = message.timestamp;
+            // console.log("增加时间元素", timestampToTime(message.timestamp));
+        }
+    }
+
+    function messageBubble(message, side) {
+        const messageBubbleTag = document.createElement('div');
+        messageBubbleTag.className = `bubble bubble-${side}`;
+        messageBubbleTag.innerHTML = replaceEmoji(message.text);
+        return messageBubbleTag;
+    }
+
+    function displayNameBox(message) {
+        const displayName = document.createElement('div');
+        displayName.className = "displayname";
+        displayName.innerHTML = message.displayname;
+        return displayName;
+    }
+
+    function avatarBox(message) {
+        const avatarTag = document.createElement('div');
+        avatarTag.className = "avatar";
+        avatarTag.innerHTML = `<img src="${message.avatar_path}" loading="lazy" />`
+        return avatarTag;
+    }
+
+    function messageImgBox(message) {
+        const messageImgTag = document.createElement('div');
+        messageImgTag.className = `chat-image`;
+        messageImgTag.innerHTML = `<img src="${message.text}" onclick="showModal(this)" loading="lazy"/>`;
+        return messageImgTag;
+    }
+
+    function messageVideoBox(message) {
+        const messageVideoTag = document.createElement('div');
+        messageVideoTag.className = `chat-video`;
+        messageVideoTag.innerHTML = `<video src="${message.text}" controls />`;
+        return messageVideoTag;
+    }
+
+    function messageElementReferText(message, side) {
+        const messageElementRefer = document.createElement('div');
+        messageElementRefer.className = `chat-refer chat-refer-${side}`;
+        messageElementRefer.innerHTML = replaceEmoji(message.refer_text);
+        return messageElementRefer;
+    }
+
+    function messageVoiceToTextBubble(message, side) {
+        const messageVoiceToTextTag = document.createElement('div');
+        messageVoiceToTextTag.className = `bubble bubble-${side}`;
+        messageVoiceToTextTag.innerHTML = message.voice_to_text;
+        return messageVoiceToTextTag;
+    }
+
+    function messageAudioBox(message) {
+        const messageAudioTag = document.createElement('div');
+        messageAudioTag.className = `chat-audio`;
+        messageAudioTag.innerHTML = `<audio src="${message.text}" controls></audio>`;
+        return messageAudioTag;
+    }
+
+    function messageCard(message) {
+        const messageTag = document.createElement('div');
+        messageTag.className = `card`;
+        messageTag.innerHTML = `<a href="${message.url}" target="_blank">
+                        <div class="card-content">
+                            <h2 title="${message.title}">${message.title}</h2>
+                            <div class="description">
+                                <p title="${message.description}">${message.description}</p>
+                                <img loading="lazy" class="thumbnail" src="${message.thumbnail}" alt="Thumbnail">
+                            </div>
+                        </div>
+                        <div class="link-info">
+                            <img loading="lazy" class="app-logo" src="${message.app_logo}" alt="App Logo">
+                            <span class="app-name">${message.app_name}</span>
+                        </div>
+                    </a>`;
+        return messageTag;
+    }
+
+    function messageFileBox(message) {
+        const messageFileTag = document.createElement('div');
+        messageFileTag.className = `chat-file`;
+        messageFileTag.onclick = function (event) {
+            if (message.text !== '') {
+                window.open(message.text, '_blank');
+            } else {
+                alert("文件可能丢失、过期或不存放在该主机上")
+            }
+        }
+        messageFileTag.innerHTML = `<div class="file-box">
+                    <div class="file-info flex1">
+                        <div class="file-title" title="${message.file_name}">${message.file_name}</div>
+                        <div class="file-size">${message.file_size}</div>
+                    </div>
+                    <div class="file-img flex2">
+                        <img src="${message.icon_path}"/>
+                    </div>
+                </div>` +
+            (message.app_name ? `<div class="app-info"><p>${message.app_name}</p></div>` : "");
+        return messageFileTag;
+    }
+
+    function messageMusicAudioBox(message) {
+        const messageMusicAudioTag = document.createElement('div');
+        messageMusicAudioTag.className = `chat-music-audio`;
+        messageMusicAudioTag.dataset.link = message.link_url;
+        messageMusicAudioTag.onclick = function (event) {
+            if (!event.target.classList.contains('play-button')) {
+                window.open(message.link_url, '_blank');
+            }
+        }
+        if (message.title.length >= 39) {
+            message.title = message.title.slice(0, 38) + '...'
+        }
+        messageMusicAudioTag.innerHTML = `<div class="player-box">
+                <div class="player-info flex1">
+                    <div class="song-title">${message.title}</div>
+                </div>
+                <div class="player-controls flex2">
+                </div>
+                </div>
+                <div class="player-original"><p>${message.website_name}</p></div>
+
+                `
+        if (message.text != '') {
+            var audio = document.createElement('audio');
+            audio.src = message.text;
+            messageMusicAudioTag.querySelector('.player-controls').append(audio)
+        }
+        ;
+        var artist = document.createElement('div');
+        artist.className = 'artist';
+        artist.innerHTML = message.artist
+        if (message.title.length < 26) {
+            messageMusicAudioTag.querySelector('.player-info').append(artist)
+        }
+        var playButton = document.createElement('button');
+        playButton.className = 'play-button paused';
+        playButton.onclick = function (event) {
+            event.stopPropagation(); // 阻止点击播放按钮时触发父级的点击事件
+            toggleAudio(event.target);
+        };
+        if (message.is_send) {
+            messageMusicAudioTag.querySelector('.player-controls').append(playButton)
+        } else {
+            messageMusicAudioTag.querySelector('.player-controls').prepend(playButton)
+        }
+        return messageMusicAudioTag;
+    }
+    function messageTransfer(message) {
+        const transfer_box = document.createElement("div");
+        transfer_box.className = "transfer-box";
+        transfer_box.setAttribute("issend", message.is_send);
+        transfer_box.setAttribute("paysubtype", message.paysubtype);
+        transfer_box.innerHTML = `<div class="transfer">
+                <div class="trans-content"><i></i>
+                    <div class="transfer-texts"><span>${message.feedesc}</span><font>${message.text}</font></div>
+                </div>
+                <div class="trans-bottom"><span>聊天转账</span></div>
+            </div>`;
+        return transfer_box;
+    }
+    function messageVideoAudioCall(message, side) {
+        const message_call_box = document.createElement('div');
+        message_call_box.className = `bubble bubble-${side} call`;
+        message_call_box.setAttribute("calltype", message.call_type)
+        message_call_box.innerHTML = `<i></i><span>${message.text}<span>`;
+        return message_call_box;
+    }
+
+    // 从数据列表中取出对应范围的元素并添加到容器中
+    for (let i = startIndex; i < endIndex && i < chatMessages.length; i++) {
+        const message = chatMessages[i];
+        add5MinTimeTag(message);
+        const messageElement = document.createElement('div'); // 下面那俩的合体
+        const avatarTag = avatarBox(message); // 头像
+        const messageContent = document.createElement('div'); // 除了avatar之外的所有
+        const side = message.is_send ? "right" : "left";
+        if (message.type == 1) {
+            // displayname 和 bubble
+            messageContent.className = `content-wrapper content-wrapper-${side}`;
+            if (message.is_chatroom && !message.is_send) {
+                messageContent.appendChild(displayNameBox(message));
+            }
+            messageContent.appendChild(messageBubble(message, side));
+
+            // 整合
+            messageElement.className = `item item-${side}`;
+            messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+            messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+        } else if (message.type == 0) {
+            messageElement.className = "item item-center";
+            messageElement.innerHTML = `<span class="system-msg">${replaceEmoji(message.text)}</span>`;
+        } else if (message.type == 3) {
+            // displayname 和 img
+            messageContent.className = `content-wrapper content-wrapper-${side}`;
+            if (message.is_chatroom && !message.is_send) {
+                messageContent.appendChild(displayNameBox(message));
+            }
+            messageContent.appendChild(messageImgBox(message));
+
+            // 整合
+            messageElement.className = `item item-${side}`;
+            messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+            messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+        } else if (message.type == 43) {
+            // displayname 和 video
+            messageContent.className = `content-wrapper content-wrapper-${side}`;
+            if (message.is_chatroom && !message.is_send) {
+                messageContent.appendChild(displayNameBox(message));
+            }
+            messageContent.appendChild(messageVideoBox(message));
+
+            // 整合
+            messageElement.className = `item item-${side}`;
+            messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+            messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+        } else if (message.type == 49) {
+            if (message.sub_type == 57) {
+                // displayname 和 bubble 和 refer
+                messageContent.className = `content-wrapper content-wrapper-${side}`;
+                if (message.is_chatroom && !message.is_send) {
+                    messageContent.appendChild(displayNameBox(message));
+                }
+                messageContent.appendChild(messageBubble(message, side));
+                if (message.refer_text) {
+                    messageContent.appendChild(messageElementReferText(message, side));
+                }
+
+                // 整合
+                messageElement.className = `item item-${side}`;
+                messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+                messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+            } else if (message.sub_type == 6) {
+                // displayname 和 file
+                messageContent.className = `content-wrapper content-wrapper-${side}`;
+                if (message.is_chatroom && !message.is_send) {
+                    messageContent.appendChild(displayNameBox(message));
+                }
+                messageContent.appendChild(messageFileBox(message));
+
+                // 整合
+                messageElement.className = `item item-${side}`;
+                messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+                messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+            } else if (message.sub_type == 3) {
+                // displayname 和 file
+                messageContent.className = `content-wrapper content-wrapper-${side}`;
+                if (message.is_chatroom && !message.is_send) {
+                    messageContent.appendChild(displayNameBox(message));
+                }
+                messageContent.appendChild(messageMusicAudioBox(message));
+
+                // 整合
+                messageElement.className = `item item-${side}`;
+                messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+                messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+            } else if (message.sub_type == 5) {
+                // displayname 和 file
+                messageContent.className = `content-wrapper content-wrapper-${side}`;
+                if (message.is_chatroom && !message.is_send) {
+                    messageContent.appendChild(displayNameBox(message));
+                }
+                messageContent.appendChild(messageCard(message));
+
+                // 整合
+                messageElement.className = `item item-${side}`;
+                messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+                messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+            } else if (message.sub_type == 2000) {
+                // displayname 和 messageTransfer
+                messageContent.className = `content-wrapper content-wrapper-${side}`;
+                if (message.is_chatroom && !message.is_send) {
+                    messageContent.appendChild(displayNameBox(message));
+                }
+                messageContent.appendChild(messageTransfer(message));
+
+                // 整合
+                messageElement.className = `item item-${side}`;
+                messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+                messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+            }
+
+        } else if (message.type == 34) {
+            // displayname 和 转的文字 和 audio
+            messageContent.className = `content-wrapper content-wrapper-${side}`;
+            if (message.is_chatroom && !message.is_send) {
+                messageContent.appendChild(displayNameBox(message));
+            }
+            if (message.voice_to_text) {
+                messageContent.appendChild(messageVoiceToTextBubble(message, side));
+            }
+            messageContent.appendChild(messageAudioBox(message));
+
+            // 整合
+            messageElement.className = `item item-${side}`;
+            messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+            messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+        } else if (message.type == 50) {
+            // displayname 和 转的文字 和 audio
+            messageContent.className = `content-wrapper content-wrapper-${side}`;
+            if (message.is_chatroom && !message.is_send) {
+                messageContent.appendChild(displayNameBox(message));
+            }
+            messageContent.appendChild(messageVideoAudioCall(message, side));
+
+            // 整合
+            messageElement.className = `item item-${side}`;
+            messageElement.appendChild(message.is_send ? messageContent : avatarTag);
+            messageElement.appendChild(message.is_send ? avatarTag : messageContent);
+        }
+        chatContainer.appendChild(messageElement);
+    }
+    document.querySelector("#chat-container").scrollTop = lastScrollTop;
+    updatePaginationInfo();
+    refreshMediaListener();
+}
+
+function prevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        reachedBottom = false;
+        renderPage(currentPage);
+    }
+}
+
+function nextPage() {
+    const totalPages = Math.ceil(chatMessages.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        renderPage(currentPage);
+    }
+}
+
+function updatePaginationInfo() {
+    const totalPages = Math.ceil(chatMessages.length / itemsPerPage);
+    const paginationInfo = document.getElementById('gotoPage');
+    paginationInfo.value = `${currentPage}`;
+}
+
+function gotoPage() {
+    const totalPages = Math.ceil(chatMessages.length / itemsPerPage);
+    const inputElement = document.getElementById('gotoPage');
+    const targetPage = parseInt(inputElement.value);
+
+    if (targetPage >= 1 && targetPage <= totalPages) {
+        currentPage = targetPage;
+        renderPage(currentPage);
+    } else {
+        alert('请输入有效的页码');
+    }
+}
+
+
+function checkScroll() {
+    var chatContainer = document.getElementById("chat-container");
+
+    // 检查滚动条是否滑到底部
+    if (chatContainer.scrollHeight - chatContainer.scrollTop - 10 <= chatContainer.clientHeight) {
+        // 如果滚动条在底部
+        if (!reachedBottom) {
+            // 设置标记并返回
+            reachedBottom = true;
+            lastScrollTop = chatContainer.scrollTop;
+        }
+        if (reachedBottom) {
+            nextPage();
+        }
+    }
+}
+
+// 初始化页面
+renderPage(currentPage);
+
+function refreshMediaListener() {
+    const audioTags = document.querySelectorAll('audio');
+    const videoTags = document.querySelectorAll('video');
+
+    audioTags.forEach(audio => {
+        audio.addEventListener('play', function () {
+            pauseOtherMedia(audio);
+        });
+    });
+    videoTags.forEach(video => {
+        video.addEventListener('play', function () {
+            pauseOtherMedia(video);
+        });
+    });
+
+    function pauseOtherMedia(currentMedia) {
+        const audioTags = document.querySelectorAll('audio');
+        const videoTags = document.querySelectorAll('video');
+        audioTags.forEach(media => {
+            if (media !== currentMedia && !media.paused) {
+                media.pause();
+            }
+        });
+        videoTags.forEach(media => {
+            if (media !== currentMedia && !media.paused) {
+                media.pause();
+            }
+        });
+    }
+}
+
+refreshMediaListener();
+
+function showModal(image) {
+    var modal = document.getElementById("modal");
+    var modalImage = document.getElementById("modal-image");
+    modal.style.display = "block";
+    modalImage.src = image.src;
+    // console.log(image.src);
+}
+
+function hideModal() {
+    var modal = document.getElementById("modal");
+    modal.style.display = "none";
+}
+
+function toggleAudio(buttonElm) {
+    var audioPlayer = buttonElm.parentNode;
+    var audio = audioPlayer.querySelector('audio');
+    if (audio == null) {
+        alert("该音频已失效或无法直接播放，有需要请点击音频链接查看")
+    } else {
+        if (audio.paused) {
+            audio.play();
+            buttonElm.classList.remove('paused');
+            buttonElm.classList.add('playing');
+        } else {
+            audio.pause();
+            buttonElm.classList.remove('playing');
+            buttonElm.classList.add('paused');
+        }
+    }
+
+}
+</script>
+</body>
+</html>
